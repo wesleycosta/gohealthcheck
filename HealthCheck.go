@@ -1,10 +1,10 @@
-package health
+package healthcheck
 
 import (
 	"fmt"
 
-	mongo "github.com/mundipagg/boleto-api/health/checks/mongo"
-	rabbit "github.com/mundipagg/boleto-api/health/checks/rabbit"
+	mongo "github.com/wesleycosta/gohealthcheck/checks/mongo"
+	rabbit "github.com/wesleycosta/gohealthcheck/checks/rabbit"
 )
 
 const (
