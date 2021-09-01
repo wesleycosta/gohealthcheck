@@ -1,5 +1,5 @@
 
-[![GoDoc](https://godoc.org/github.com/mundipagg/goseq?status.svg)](https://godoc.org/github.com/mundipagg/goseq)
+[![GoDoc](https://godoc.org/github.com/wesleycosta/goseq?status.svg)](https://godoc.org/github.com/wesleycosta/goseq)
 # Golang health check
 
 Bliblioteca de health check em Golang.
@@ -12,7 +12,7 @@ Bliblioteca de health check em Golang.
 
 ### Usando *go get*
 
-    $ go get github.com/mundipagg/gohealthcheck
+    $ go get github.com/wesleycosta/healthcheck-go
 
 ## Exemplos
 
@@ -25,12 +25,12 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mundipagg/boleto-api/config"
-	"github.com/mundipagg/boleto-api/log"
-	HealthCheckLib "github.com/mundipagg/gohealthcheck"
+	"github.com/wesleycosta/boleto-api/config"
+	"github.com/wesleycosta/boleto-api/log"
+	HealthCheckLib "github.com/wesleycosta/healthcheck-go"
 
-	"github.com/mundipagg/gohealthcheck/checks/mongo"
-	"github.com/mundipagg/gohealthcheck/checks/rabbit"
+	"github.com/wesleycosta/healthcheck-go/checks/mongo"
+	"github.com/wesleycosta/healthcheck-go/checks/rabbit"
 )
 
 func createHealthCheck() HealthCheckLib.HealthCheck {
@@ -49,8 +49,8 @@ func createHealthCheck() HealthCheckLib.HealthCheck {
 	}
 
 	healthCheck := HealthCheckLib.New()
-	healthCheck.AddMongo(&mongoConfig)
-	healthCheck.AddRabbit(&rabbitConfig)
+	healthCheck.AddService(&mongoConfig)
+	healthCheck.AddService(&rabbitConfig)
 
 	return healthCheck
 }
@@ -68,7 +68,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mundipagg/boleto-api/healthcheck"
+	"github.com/wesleycosta/boleto-api/healthcheck"
 )
 
 func Base(router *gin.Engine) {

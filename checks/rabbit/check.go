@@ -4,11 +4,11 @@ import (
 	"errors"
 	"time"
 
-	checks "github.com/mundipagg/healthcheck-go/checks"
 	"github.com/streadway/amqp"
+	checks "github.com/wesleycosta/healthcheck-go/checks"
 )
 
-func New(config *Config) checks.Check {
+func new(config *Config) checks.Check {
 	return &healthCheck{
 		Config: config,
 	}
@@ -20,6 +20,10 @@ type Config struct {
 
 type healthCheck struct {
 	Config *Config
+}
+
+func (config *Config) CreateCheck() checks.Check {
+	return new(config)
 }
 
 func (service *healthCheck) GetName() string {

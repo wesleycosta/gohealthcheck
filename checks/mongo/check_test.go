@@ -3,19 +3,21 @@ package mongo
 import (
 	"testing"
 
-	check "github.com/mundipagg/healthcheck-go/checks"
 	"github.com/stretchr/testify/assert"
+	check "github.com/wesleycosta/healthcheck-go/checks"
 )
 
 func Test_GetName_WhenExecuted_ShouldReturnMongo(t *testing.T) {
-	healthcheck := New(nil)
+	config := newStubMongoConfig()
+	healthcheck := config.CreateCheck()
+
 	assert.Equal(t, healthcheck.GetName(), "mongo")
 }
 
 func Test_Execute_WhenConfigurationIsValidAndServiceIsRunning_ShouldReturnHealthy(t *testing.T) {
 	config := newStubMongoConfig()
 
-	healthcheck := New(config)
+	healthcheck := config.CreateCheck()
 	result := healthcheck.Execute()
 
 	assert.NotNil(t, result)
@@ -27,7 +29,7 @@ func Test_Execute_WhenConfigurationIsInvalid_ShouldReturnUnhealthy(t *testing.T)
 	invalidConfig := newStubMongoConfig()
 	invalidConfig.withUrl("")
 
-	healthCheck := New(invalidConfig)
+	healthCheck := invalidConfig.CreateCheck()
 	result := healthCheck.Execute()
 
 	assert.NotNil(t, result)

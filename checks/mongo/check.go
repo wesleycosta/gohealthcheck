@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mundipagg/healthcheck-go/checks"
+	"github.com/wesleycosta/healthcheck-go/checks"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -19,12 +19,6 @@ var (
 	ConnectionTimeout = 3 * time.Second
 	mu                sync.RWMutex
 )
-
-func New(config *Config) checks.Check {
-	return &healthCheck{
-		Config: config,
-	}
-}
 
 type Config struct {
 	Url        string
@@ -40,8 +34,18 @@ type healthCheck struct {
 	Config *Config
 }
 
+func new(config *Config) checks.Check {
+	return &healthCheck{
+		Config: config,
+	}
+}
+
 func (service *healthCheck) GetName() string {
 	return "mongo"
+}
+
+func (config *Config) CreateCheck() checks.Check {
+	return new(config)
 }
 
 func (service *healthCheck) Execute() checks.CheckResult {
