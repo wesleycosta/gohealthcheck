@@ -3,11 +3,11 @@ package healthcheck
 import (
 	"testing"
 
-	tests "github.com/wesleycosta/healthcheck-go/tests"
+	tests "github.com/mundipagg/healthcheck-go/tests"
 
+	check "github.com/mundipagg/healthcheck-go/checks"
+	rabbit "github.com/mundipagg/healthcheck-go/checks/rabbit"
 	"github.com/stretchr/testify/assert"
-	check "github.com/wesleycosta/healthcheck-go/checks"
-	rabbit "github.com/wesleycosta/healthcheck-go/checks/rabbit"
 )
 
 func Test_Execute_WhenNoCheckConfigured_ShouldReturnHealthy(t *testing.T) {

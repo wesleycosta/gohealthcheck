@@ -3,8 +3,8 @@ package rabbit
 import (
 	"testing"
 
+	check "github.com/mundipagg/healthcheck-go/checks"
 	"github.com/stretchr/testify/assert"
-	check "github.com/wesleycosta/healthcheck-go/checks"
 )
 
 func Test_GetName_WhenExecuted_ShouldReturnRabbit(t *testing.T) {
