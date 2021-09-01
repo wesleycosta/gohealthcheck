@@ -4,15 +4,11 @@ import (
 	"errors"
 	"time"
 
+	checks "github.com/mundipagg/healthcheck-go/checks"
 	"github.com/streadway/amqp"
 )
 
-type HealthCheck interface {
-	Execute() error
-	GetName() string
-}
-
-func New(config *Config) HealthCheck {
+func New(config *Config) checks.Check {
 	return &healthCheck{
 		Config: config,
 	}
@@ -30,18 +26,30 @@ func (service *healthCheck) GetName() string {
 	return "rabbit"
 }
 
-func (service *healthCheck) Execute() error {
-	conn, err := openConnection(service.Config)
+func (service *healthCheck) Execute() checks.CheckResult {
+	err := service.executeCheck()
+	return checks.NewCheckResult(service.GetName(), err)
+}
+
+func (service *healthCheck) executeCheck() error {
+	connection, err := openConnection(service.Config)
 	if err != nil {
 		return err
 	}
 
-	channel, err := openChannel(conn)
+	channel, err := openChannel(connection)
 	if err != nil {
 		return err
 	}
 
-	return closeChannel(channel)
+	err = closeChannel(channel)
+
+	if err != nil {
+		closeConnection(connection)
+		return err
+	}
+
+	return closeConnection(connection)
 }
 
 func openChannel(conn *amqp.Connection) (*amqp.Channel, error) {
@@ -63,6 +71,14 @@ func openChannel(conn *amqp.Connection) (*amqp.Channel, error) {
 func closeChannel(channel *amqp.Channel) error {
 	if channel != nil {
 		return channel.Close()
+	}
+
+	return nil
+}
+
+func closeConnection(connection *amqp.Connection) error {
+	if connection != nil {
+		return connection.Close()
 	}
 
 	return nil

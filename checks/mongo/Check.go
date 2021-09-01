@@ -3,10 +3,11 @@ package mongo
 import (
 	"context"
 	"crypto/tls"
-	"fmt"
+	"errors"
 	"sync"
 	"time"
 
+	"github.com/mundipagg/healthcheck-go/checks"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -14,23 +15,12 @@ import (
 )
 
 var (
-	conn              *mongo.Client // is concurrent safe: https://github.com/mongodb/mongo-go-driver/blob/master/mongo/client.go#L46
+	conn              *mongo.Client
 	ConnectionTimeout = 3 * time.Second
 	mu                sync.RWMutex
 )
 
-const (
-	NotFoundDoc = "mongo: no documents in result"
-	InvalidPK   = "invalid pk"
-	emptyConn   = "Connection is empty"
-)
-
-type HealthCheck interface {
-	Execute() error
-	GetName() string
-}
-
-func New(config *Config) HealthCheck {
+func New(config *Config) checks.Check {
 	return &healthCheck{
 		Config: config,
 	}
@@ -54,8 +44,17 @@ func (service *healthCheck) GetName() string {
 	return "mongo"
 }
 
-func (healthCheck *healthCheck) Execute() error {
-	_, err := healthCheck.createMongo()
+func (service *healthCheck) Execute() checks.CheckResult {
+	err := service.executeCheck()
+	return checks.NewCheckResult(service.GetName(), err)
+}
+
+func (service *healthCheck) executeCheck() error {
+	if service.Config.Url == "" {
+		return errors.New("URL is empty")
+	}
+
+	_, err := service.connectMongo()
 	if err != nil {
 		return err
 	}
@@ -63,7 +62,7 @@ func (healthCheck *healthCheck) Execute() error {
 	return ping()
 }
 
-func (healthCheck *healthCheck) createMongo() (*mongo.Client, error) {
+func (service *healthCheck) connectMongo() (*mongo.Client, error) {
 	mu.Lock()
 	defer mu.Unlock()
 
@@ -75,7 +74,7 @@ func (healthCheck *healthCheck) createMongo() (*mongo.Client, error) {
 	defer cancel()
 
 	var err error
-	conn, err = mongo.Connect(ctx, getClientOptions(healthCheck.Config))
+	conn, err = mongo.Connect(ctx, getClientOptions(service.Config))
 	if err != nil {
 		return conn, err
 	}
@@ -84,14 +83,16 @@ func (healthCheck *healthCheck) createMongo() (*mongo.Client, error) {
 }
 
 func ping() error {
+	var err error
 	if conn == nil {
-		return fmt.Errorf(emptyConn)
+		err = errors.New("Connection is empty")
+		return err
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), ConnectionTimeout)
 	defer cancel()
 
-	err := conn.Ping(ctx, readpref.Primary())
+	err = conn.Ping(ctx, readpref.Primary())
 	if err != nil {
 		return err
 	}

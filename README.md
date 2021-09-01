@@ -1,2 +1,0 @@
-# gohealthcheck
-Healthcheck em golang
