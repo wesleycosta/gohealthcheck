@@ -1,9 +1,9 @@
 package healthcheck
 
 import (
-	"github.com/mundipagg/healthcheck-go/checks"
-	mongo "github.com/mundipagg/healthcheck-go/checks/mongo"
-	rabbit "github.com/mundipagg/healthcheck-go/checks/rabbit"
+	"github.com/wesleycosta/healthcheck-go/checks"
+	mongo "github.com/wesleycosta/healthcheck-go/checks/mongo"
+	rabbit "github.com/wesleycosta/healthcheck-go/checks/rabbit"
 )
 
 type HealthCheck interface {
