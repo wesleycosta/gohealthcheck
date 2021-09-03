@@ -2,7 +2,7 @@ package tests
 
 import (
 	"github.com/wesleycosta/healthcheck-go/checks/mongo"
-	"github.com/wesleycostata/healthcheck-go/checks/rabbit"
+	"github.com/wesleycosta/healthcheck-go/checks/rabbit"
 )
 
 func NewStubRabbitConfig() *rabbit.Config {

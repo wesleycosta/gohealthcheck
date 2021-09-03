@@ -6,8 +6,8 @@ import (
 	tests "github.com/wesleycosta/healthcheck-go/tests"
 
 	"github.com/stretchr/testify/assert"
-	check "github.com/wesleycostata/healthcheck-go/checks"
-	rabbit "github.com/wesleycostata/healthcheck-go/checks/rabbit"
+	check "github.com/wesleycosta/healthcheck-go/checks"
+	rabbit "github.com/wesleycosta/healthcheck-go/checks/rabbit"
 )
 
 func Test_Execute_WhenNoCheckConfigured_ShouldReturnHealthy(t *testing.T) {

@@ -2,12 +2,13 @@ package mongo
 
 func newStubMongoConfig() *Config {
 	return &Config{
-		Url:        "mongodb://localhost:27017",
-		User:       "test",
-		Password:   "test",
-		AuthSource: "admin",
-		Timeout:    3,
-		ForceTLS:   false,
+		Url:         "mongodb://localhost:27017",
+		User:        "test",
+		Password:    "test",
+		AuthSource:  "admin",
+		Timeout:     3,
+		ForceTLS:    false,
+		MaxPoolSize: 10,
 	}
 }
 
