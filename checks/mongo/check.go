@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mundipagg/healthcheck-go/checks"
+	"github.com/wesleycosta/healthcheck-go/checks"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"

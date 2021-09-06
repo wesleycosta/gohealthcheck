@@ -1,4 +1,4 @@
-module github.com/mundipagg/healthcheck-go
+module github.com/wesleycosta/healthcheck-go
 
 go 1.13
 

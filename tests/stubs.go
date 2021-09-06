@@ -1,9 +1,9 @@
 package tests
 
 import (
-	"github.com/mundipagg/healthcheck-go/checks/mongo"
-	"github.com/mundipagg/healthcheck-go/checks/rabbit"
-	"github.com/mundipagg/healthcheck-go/checks/sqlServer"
+	"github.com/wesleycosta/healthcheck-go/checks/mongo"
+	"github.com/wesleycosta/healthcheck-go/checks/rabbit"
+	"github.com/wesleycosta/healthcheck-go/checks/sqlServer"
 )
 
 func NewStubRabbitConfig() *rabbit.Config {

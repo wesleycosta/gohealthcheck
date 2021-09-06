@@ -1,10 +1,10 @@
 package healthcheck
 
 import (
-	"github.com/mundipagg/healthcheck-go/checks"
-	mongo "github.com/mundipagg/healthcheck-go/checks/mongo"
-	rabbit "github.com/mundipagg/healthcheck-go/checks/rabbit"
-	sqlServer "github.com/mundipagg/healthcheck-go/checks/sqlServer"
+	"github.com/wesleycosta/healthcheck-go/checks"
+	mongo "github.com/wesleycosta/healthcheck-go/checks/mongo"
+	rabbit "github.com/wesleycosta/healthcheck-go/checks/rabbit"
+	sqlServer "github.com/wesleycosta/healthcheck-go/checks/sqlServer"
 )
 
 type HealthCheck interface {

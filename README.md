@@ -1,5 +1,5 @@
 
-[![GoDoc](https://godoc.org/github.com/mundipagg/goseq?status.svg)](https://godoc.org/github.com/mundipagg/goseq)
+[![GoDoc](https://godoc.org/github.com/wesleycosta/goseq?status.svg)](https://godoc.org/github.com/wesleycosta/goseq)
 # Golang health check
 
 Bliblioteca de health check em Golang.
@@ -12,13 +12,13 @@ Bliblioteca de health check em Golang.
 
 ### Usando *go get*
 
-    $ go get github.com/mundipagg/healthcheck-go
+    $ go get github.com/wesleycosta/healthcheck-go
 
 ### Usando govendor
-	$ govendor add github.com/mundipagg/healthcheck-go
-	$ govendor add github.com/mundipagg/healthcheck-go/checks
-	$ govendor add github.com/mundipagg/healthcheck-go/checks/mongo
-	$ govendor add github.com/mundipagg/healthcheck-go/checks/rabbit       
+	$ govendor add github.com/wesleycosta/healthcheck-go
+	$ govendor add github.com/wesleycosta/healthcheck-go/checks
+	$ govendor add github.com/wesleycosta/healthcheck-go/checks/mongo
+	$ govendor add github.com/wesleycosta/healthcheck-go/checks/rabbit       
 
 ## Exemplo
 
@@ -28,11 +28,11 @@ package healthcheck
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mundipagg/boleto-api/config"
+	"github.com/wesleycosta/boleto-api/config"
 
-	HealthCheckLib "github.com/mundipagg/healthcheck-go"
-	"github.com/mundipagg/healthcheck-go/checks/mongo"
-	"github.com/mundipagg/healthcheck-go/checks/rabbit"
+	HealthCheckLib "github.com/wesleycosta/healthcheck-go"
+	"github.com/wesleycosta/healthcheck-go/checks/mongo"
+	"github.com/wesleycosta/healthcheck-go/checks/rabbit"
 )
 
 func createHealthCheck() HealthCheckLib.HealthCheck {
@@ -71,7 +71,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mundipagg/boleto-api/healthcheck"
+	"github.com/wesleycosta/boleto-api/healthcheck"
 )
 
 func Base(router *gin.Engine) {
