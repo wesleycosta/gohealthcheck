@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	_ "github.com/denisenkom/go-mssqldb"
-	checks "github.com/wesleycosta/healthcheck-go/checks"
+	checks "github.com/mundipagg/healthcheck-go/checks"
 )
 
 var (
