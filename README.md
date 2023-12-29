@@ -45,6 +45,7 @@ $ govendor add github.com/wesleycosta/healthcheck-go
 $ govendor add github.com/wesleycosta/healthcheck-go/checks
 $ govendor add github.com/wesleycosta/healthcheck-go/checks/mongo
 $ govendor add github.com/wesleycosta/healthcheck-go/checks/rabbit
+$ govendor add github.com/wesleycosta/healthcheck-go/checks/sqlServer
 ```
 
 ## Utilizando a lib
