@@ -47,10 +47,31 @@ $ govendor add github.com/wesleycosta/healthcheck-go/checks/mongo
 $ govendor add github.com/wesleycosta/healthcheck-go/checks/rabbit
 ```
 
-## Exemplo de Uso
+## Utilizando a lib
 
-### HealthCheck
+Para configurar o Healthcheck na sua aplicação, siga os seguintes passos:
 
+1. **Crie uma instância do HealthCheck:**
+   - Utilize `HealthCheckLib.New()` para criar uma instância do Healthcheck.
+   
+2. **Configure quais serão os serviços monitorados:**
+   - Para cada serviço que deseja monitorar, configure as opções específicas.
+   - Exemplos:
+     - MongoDB: Utilize o arquivo `mongo.Config`.
+     - RabbitMQ: Utilize o arquivo `rabbit.Config`.
+     - SQL Server: Utilize o arquivo `sqlServer.Config`.
+
+3. **Adicione as Configurações ao HealthCheck:**
+   - Após criar as configurações específicas do serviço, adicione-as à instância do HealthCheck utilizando o método `AddService`.
+   
+4. **Integre o HealthCheck em seu Endpoint:**
+   - Ao criar uma instância do HealthCheck configurada, integre-o em seu endpoint para executar verificações dos serviços.
+   - Retorne o resultado dessas verificações como uma resposta JSON.
+
+
+#### Exemplo do configuração
+
+##### Arquivo de configuração do HealthCheck
 ```go
 package healthcheck
 
@@ -86,13 +107,9 @@ func createHealthCheck() HealthCheckLib.HealthCheck {
 	return healthCheck
 }
 
-func Endpoint(c *gin.Context) {
-	healthcheck := createHealthCheck()
-	c.JSON(200, healthcheck.Execute())
-}
 ```
 
-### API
+#### Criando um endpoint para o HealthCheck
 
 ```go
 package api
