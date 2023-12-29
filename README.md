@@ -116,7 +116,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/wesleycosta/boleto-api/healthcheck"
+	"github.com/wesleycosta/healthcheck"
 )
 
 func Base(router *gin.Engine) {
