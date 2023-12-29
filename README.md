@@ -77,7 +77,6 @@ package healthcheck
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/wesleycosta/boleto-api/config"
 
 	HealthCheckLib "github.com/wesleycosta/healthcheck-go"
 	"github.com/wesleycosta/healthcheck-go/checks/mongo"
