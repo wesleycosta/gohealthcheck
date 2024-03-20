@@ -1,44 +1,42 @@
-[![GoDoc](https://godoc.org/github.com/wesleycosta/goseq?status.svg)](https://godoc.org/github.com/wesleycosta/goseq)
 # Health Check Go
 
-Biblioteca de Health Check em Golang.
+Health Check library in Golang.
 
-## Estrutura do Projeto
+## Project Structure
 
-- **checks:** Pasta contendo verificações para dependências externas (SQL Server, RabbitMQ e MongoDB).
+- **checks:** Folder containing checks for external dependencies (SQL Server, RabbitMQ, and MongoDB).
   - **mongo:**
-    - *check.go:* Implementação da verificação para MongoDB.
-    - *check_test.go:* Testes para a verificação do MongoDB.
-    - *stub.go:* Stub para os testes do MongoDB.
+    - *check.go:* Implementation of MongoDB check.
+    - *check_test.go:* Tests for MongoDB check.
+    - *stub.go:* Stub for MongoDB tests.
   - **rabbit:**
-    - *check.go:* Implementação da verificação para RabbitMQ.
-    - *check_test.go:* Testes para a verificação do RabbitMQ.
-    - *stub.go:* Stub para os testes do RabbitMQ.
+    - *check.go:* Implementation of RabbitMQ check.
+    - *check_test.go:* Tests for RabbitMQ check.
+    - *stub.go:* Stub for RabbitMQ tests.
   - **sqlServer:**
-    - *check.go:* Implementação da verificação para SQL Server.
-    - *check_test.go:* Testes para a verificação do SQL Server.
-    - *stub.go:* Stub para os testes do SQL Server.
+    - *check.go:* Implementation of SQL Server check.
+    - *check_test.go:* Tests for SQL Server check.
+    - *stub.go:* Stub for SQL Server tests.
 
-- **healthcheck.go:** Arquivo principal de configuração.
+- **healthcheck.go:** Main configuration file.
 
-- **docker-compose.yml:** Arquivo Docker Compose para os testes.
+- **docker-compose.yml:** Docker Compose file for tests.
 
-### Lista de serviços
+### Service List
 
 1. MongoDB;
 2. SQL Server;
 3. RabbitMQ.
 
+## Installation
 
-## Instalação
-
-### Utilizando *go get*
+### Using *go get*
 
 ```bash
 $ go get github.com/wesleycosta/healthcheck-go
 ```
 
-### Utilizando govendor
+### Using govendor
 
 ```bash
 $ govendor add github.com/wesleycosta/healthcheck-go
@@ -48,31 +46,30 @@ $ govendor add github.com/wesleycosta/healthcheck-go/checks/rabbit
 $ govendor add github.com/wesleycosta/healthcheck-go/checks/sqlServer
 ```
 
-## Utilizando a lib
+## Using the library
 
-Para configurar o Healthcheck na sua aplicação, siga os seguintes passos:
+To configure Healthcheck in your application, follow these steps:
 
-1. **Crie uma instância do HealthCheck:**
-   - Utilize `HealthCheckLib.New()` para criar uma instância do Healthcheck.
+1. **Create a HealthCheck instance:**
+   - Use `HealthCheckLib.New()` to create a Healthcheck instance.
    
-2. **Configure quais serão os serviços monitorados:**
-   - Para cada serviço que deseja monitorar, configure as opções específicas.
-   - Exemplos:
-     - MongoDB: Utilize o arquivo `mongo.Config`.
-     - RabbitMQ: Utilize o arquivo `rabbit.Config`.
-     - SQL Server: Utilize o arquivo `sqlServer.Config`.
+2. **Configure which services will be monitored:**
+   - For each service you want to monitor, configure specific options.
+   - Examples:
+     - MongoDB: Use the `mongo.Config` file.
+     - RabbitMQ: Use the `rabbit.Config` file.
+     - SQL Server: Use the `sqlServer.Config` file.
 
-3. **Adicione as Configurações ao HealthCheck:**
-   - Após criar as configurações específicas do serviço, adicione-as à instância do HealthCheck utilizando o método `AddService`.
+3. **Add Configurations to HealthCheck:**
+   - After creating specific service configurations, add them to the HealthCheck instance using the `AddService` method.
    
-4. **Integre o HealthCheck em seu Endpoint:**
-   - Ao criar uma instância do HealthCheck configurada, integre-o em seu endpoint para executar verificações dos serviços.
-   - Retorne o resultado dessas verificações como uma resposta JSON.
+4. **Integrate HealthCheck into your Endpoint:**
+   - When you have a configured HealthCheck instance, integrate it into your endpoint to perform service checks.
+   - Return the results of these checks as a JSON response.
 
+#### Configuration Example
 
-#### Exemplo do configuração
-
-##### Arquivo de configuração do HealthCheck
+##### HealthCheck Configuration File
 ```go
 package healthcheck
 
@@ -109,7 +106,7 @@ func createHealthCheck() HealthCheckLib.HealthCheck {
 
 ```
 
-#### Criando um endpoint para o HealthCheck
+#### Creating an endpoint for HealthCheck
 
 ```go
 package api
@@ -123,7 +120,8 @@ func Base(router *gin.Engine) {
 	router.GET("/healthcheck", healthcheck.Endpoint)
 }
 ```
-### Resposta Healthy
+
+### Healthy Response
 ```json
 {
     "status": "Healthy",
@@ -140,14 +138,14 @@ func Base(router *gin.Engine) {
 }
 ```
 
-### Resposta Unhealthy
+### Unhealthy Response
 ```json
 {
     "status": "Unhealthy",
     "results": {
         "mongo": {
             "status": "Unhealthy",
-            "description": "<descricao do erro>"
+            "description": "<error description>"
         },
         "rabbit": {
             "status": "Healthy",
